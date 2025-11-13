@@ -18,6 +18,7 @@ import {
   AlertCircle
 } from "lucide-react"
 import { useRecipeStore } from "@/store/useRecipeStore"
+import { MainNav } from "@/components/navigation/main-nav"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -46,6 +47,7 @@ export default function RecipeDetailPage() {
   if (!recipe) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <MainNav />
         <Card className="max-w-md w-full">
           <CardContent className="pt-6 text-center">
             <AlertCircle className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
@@ -100,36 +102,9 @@ export default function RecipeDetailPage() {
   }[recipe.difficulty]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20 md:pb-0">
+      <MainNav />
       {/* Header */}
-      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Button variant="ghost" asChild>
-              <Link href="/generate">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Recipes
-              </Link>
-            </Button>
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="icon" onClick={handleShare}>
-                <Share2 className="h-4 w-4" />
-              </Button>
-              <Button
-                variant={isBookmarked ? "default" : "outline"}
-                size="icon"
-                onClick={handleBookmark}
-              >
-                {isBookmarked ? (
-                  <BookmarkCheck className="h-4 w-4" />
-                ) : (
-                  <Bookmark className="h-4 w-4" />
-                )}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 max-w-5xl">

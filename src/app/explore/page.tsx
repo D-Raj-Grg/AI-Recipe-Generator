@@ -5,7 +5,6 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import {
   ChefHat,
-  ArrowLeft,
   Search,
   Compass,
   Clock,
@@ -13,6 +12,7 @@ import {
 } from "lucide-react"
 import { useRecipeStore } from "@/store/useRecipeStore"
 import { RecipeCard } from "@/components/recipe/recipe-card"
+import { MainNav } from "@/components/navigation/main-nav"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -128,24 +128,9 @@ export default function ExplorePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20 md:pb-0">
+      <MainNav />
       {/* Header */}
-      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Compass className="h-6 w-6 text-primary" />
-              <h1 className="text-2xl font-bold">Explore Recipes</h1>
-            </div>
-            <Button variant="ghost" asChild>
-              <Link href="/generate">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Generate
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </header>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 max-w-7xl">
