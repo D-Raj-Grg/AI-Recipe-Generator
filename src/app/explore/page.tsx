@@ -46,12 +46,22 @@ const MEAL_TYPES = [
   { name: "Side Dish", emoji: "🥗", description: "Accompaniments and sides" }
 ]
 
+const OCCASIONS = [
+  { name: "Quick Weeknight Dinners", emoji: "⚡", description: "Fast and easy meals under 30 minutes", filter: (recipe: any) => recipe.totalTime <= 30 && recipe.mealType.includes("Dinner") },
+  { name: "Weekend Cooking Projects", emoji: "🏡", description: "Complex recipes for when you have time", filter: (recipe: any) => recipe.totalTime > 60 || recipe.difficulty === "Advanced" },
+  { name: "Party Appetizers", emoji: "🎉", description: "Crowd-pleasing starters and finger foods", filter: (recipe: any) => recipe.mealType.includes("Appetizer") || recipe.mealType.includes("Snack") },
+  { name: "Holiday Specials", emoji: "🎊", description: "Festive dishes for celebrations", filter: (recipe: any) => recipe.totalTime > 60 || (recipe.servings >= 6 && recipe.difficulty !== "Beginner") },
+  { name: "Meal Prep Friendly", emoji: "📦", description: "Make ahead and batch cooking recipes", filter: (recipe: any) => recipe.servings >= 4 && recipe.totalTime >= 30 },
+  { name: "Kid-Friendly", emoji: "👨‍👩‍👧‍👦", description: "Simple and appealing for children", filter: (recipe: any) => recipe.difficulty === "Beginner" && recipe.totalTime <= 45 }
+]
+
 export default function ExplorePage() {
   const { bookmarkedRecipes, recipeHistory } = useRecipeStore()
 
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCuisine, setSelectedCuisine] = useState<string | null>(null)
   const [selectedMealType, setSelectedMealType] = useState<string | null>(null)
+  const [selectedOccasion, setSelectedOccasion] = useState<string | null>(null)
   const [sortBy, setSortBy] = useState<string>("recent")
   const [activeTab, setActiveTab] = useState("cuisines")
 
@@ -99,6 +109,14 @@ export default function ExplorePage() {
       )
     }
 
+    // Occasion filter
+    if (selectedOccasion) {
+      const occasion = OCCASIONS.find((o) => o.name === selectedOccasion)
+      if (occasion) {
+        filtered = filtered.filter((recipe) => occasion.filter(recipe))
+      }
+    }
+
     // Sort
     if (sortBy === "recent") {
       filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
@@ -109,7 +127,7 @@ export default function ExplorePage() {
     }
 
     return filtered
-  }, [allRecipes, searchQuery, selectedCuisine, selectedMealType, sortBy])
+  }, [allRecipes, searchQuery, selectedCuisine, selectedMealType, selectedOccasion, sortBy])
 
   // Get recipe count by cuisine
   const getCuisineCount = (cuisine: string) => {
@@ -121,10 +139,18 @@ export default function ExplorePage() {
     return allRecipes.filter((r) => r.mealType.includes(mealType)).length
   }
 
+  // Get recipe count by occasion
+  const getOccasionCount = (occasionName: string) => {
+    const occasion = OCCASIONS.find((o) => o.name === occasionName)
+    if (!occasion) return 0
+    return allRecipes.filter((r) => occasion.filter(r)).length
+  }
+
   const clearFilters = () => {
     setSearchQuery("")
     setSelectedCuisine(null)
     setSelectedMealType(null)
+    setSelectedOccasion(null)
   }
 
   return (
@@ -144,7 +170,7 @@ export default function ExplorePage() {
               Discover New Recipes
             </h2>
             <p className="text-muted-foreground">
-              Browse by cuisine or meal type from your saved recipes and history
+              Browse by cuisine, meal type, or occasion from your saved recipes and history
             </p>
           </div>
 
@@ -167,11 +193,12 @@ export default function ExplorePage() {
             </Card>
           ) : (
             <>
-              {/* Tabs: Cuisines vs Meal Types */}
+              {/* Tabs: Cuisines vs Meal Types vs Occasions */}
               <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
-                <TabsList className="grid w-full max-w-md grid-cols-2">
+                <TabsList className="grid w-full max-w-2xl grid-cols-3">
                   <TabsTrigger value="cuisines">By Cuisine</TabsTrigger>
                   <TabsTrigger value="mealtypes">By Meal Type</TabsTrigger>
+                  <TabsTrigger value="occasions">By Occasion</TabsTrigger>
                 </TabsList>
 
                 {/* Cuisines Tab */}
@@ -259,17 +286,62 @@ export default function ExplorePage() {
                     })}
                   </div>
                 </TabsContent>
+
+                {/* Occasions Tab */}
+                <TabsContent value="occasions" className="mt-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                    {OCCASIONS.map((occasion) => {
+                      const count = getOccasionCount(occasion.name)
+                      const isSelected = selectedOccasion === occasion.name
+
+                      return (
+                        <motion.div
+                          key={occasion.name}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <Card
+                            className={`cursor-pointer transition-all ${
+                              isSelected
+                                ? "ring-2 ring-primary bg-primary/5"
+                                : "hover:border-primary/50"
+                            } ${count === 0 ? "opacity-50" : ""}`}
+                            onClick={() => {
+                              if (count > 0) {
+                                setSelectedOccasion(isSelected ? null : occasion.name)
+                                setSelectedCuisine(null)
+                                setSelectedMealType(null)
+                              }
+                            }}
+                          >
+                            <CardContent className="pt-6 pb-6 text-center">
+                              <div className="text-4xl mb-2">{occasion.emoji}</div>
+                              <h3 className="font-semibold mb-1">{occasion.name}</h3>
+                              <p className="text-xs text-muted-foreground mb-2">
+                                {occasion.description}
+                              </p>
+                              <Badge variant={count > 0 ? "secondary" : "outline"}>
+                                {count} {count === 1 ? "recipe" : "recipes"}
+                              </Badge>
+                            </CardContent>
+                          </Card>
+                        </motion.div>
+                      )
+                    })}
+                  </div>
+                </TabsContent>
               </Tabs>
 
               {/* Results Section (only show when filter is active) */}
-              {(selectedCuisine || selectedMealType || searchQuery) && (
+              {(selectedCuisine || selectedMealType || selectedOccasion || searchQuery) && (
                 <>
                   <div className="mb-6">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-xl font-semibold">
                         {selectedCuisine && `${selectedCuisine} Recipes`}
                         {selectedMealType && `${selectedMealType} Recipes`}
-                        {!selectedCuisine && !selectedMealType && searchQuery && "Search Results"}
+                        {selectedOccasion && `${selectedOccasion}`}
+                        {!selectedCuisine && !selectedMealType && !selectedOccasion && searchQuery && "Search Results"}
                       </h3>
                       <Button variant="outline" size="sm" onClick={clearFilters}>
                         Clear Filters
