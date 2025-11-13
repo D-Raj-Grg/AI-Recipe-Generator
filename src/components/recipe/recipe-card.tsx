@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { motion } from "framer-motion"
 import { Clock, ChefHat, Users, Bookmark, BookmarkCheck } from "lucide-react"
 import { useRecipeStore } from "@/store/useRecipeStore"
@@ -121,9 +122,9 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
 
           {/* View Details Button */}
           <Button className="w-full" variant="default" asChild>
-            <a href={`/recipe/${recipe.id}`}>
+            <Link href={`/recipe/${recipe.id}`}>
               View Full Recipe
-            </a>
+            </Link>
           </Button>
         </CardContent>
       </Card>
