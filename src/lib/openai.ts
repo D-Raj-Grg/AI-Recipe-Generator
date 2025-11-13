@@ -23,7 +23,7 @@ export async function generateWithOpenAI(
   try {
     const result = await generateText({
       model: openai(options?.model || 'gpt-4o-mini'),
-      system: 'You are a professional chef and recipe expert. Generate creative, practical, and delicious recipes based on user requirements. Always respond with valid JSON only, no additional text.',
+      system: 'You are a professional chef and recipe expert. Generate creative, practical, and delicious recipes based on user requirements. CRITICAL: Always respond with ONLY raw JSON - no markdown code blocks, no ```json wrapper, no additional text or explanations. Just pure JSON starting with { and ending with }.',
       prompt: prompt,
       temperature: options?.temperature || 0.8, // Higher for creative variations
     })

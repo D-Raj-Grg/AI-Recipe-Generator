@@ -40,7 +40,9 @@ Requirements:
 - Dietary restrictions: ${restrictionList}
 - Ingredients to avoid: ${excludeList}
 
-Return ONLY a JSON object with this exact structure:
+CRITICAL: Respond with ONLY raw JSON. No markdown, no code blocks, no backtick wrapper. Just pure JSON starting with { and ending with }.
+
+Return a JSON object with this exact structure:
 {
   "recipes": [
     {

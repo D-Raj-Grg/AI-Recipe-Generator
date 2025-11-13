@@ -102,8 +102,20 @@ export async function POST(request: Request) {
       throw new Error('No response from OpenAI')
     }
 
+    // Clean response - remove markdown code blocks if present
+    let cleanedResponse = response.trim()
+
+    // Remove markdown code block wrapper (```json ... ```)
+    if (cleanedResponse.startsWith('```')) {
+      cleanedResponse = cleanedResponse
+        .replace(/^```json\n?/i, '')
+        .replace(/^```\n?/, '')
+        .replace(/\n?```$/, '')
+        .trim()
+    }
+
     // Parse response
-    const parsed = JSON.parse(response)
+    const parsed = JSON.parse(cleanedResponse)
 
     if (!parsed.recipes || !Array.isArray(parsed.recipes)) {
       throw new Error('Invalid response format from OpenAI')
