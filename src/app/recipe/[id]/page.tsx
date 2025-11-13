@@ -19,6 +19,7 @@ import {
 } from "lucide-react"
 import { useRecipeStore } from "@/store/useRecipeStore"
 import { MainNav } from "@/components/navigation/main-nav"
+import { RecipeSchema } from "@/components/recipe/recipe-schema"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -46,20 +47,22 @@ export default function RecipeDetailPage() {
 
   if (!recipe) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <MainNav />
-        <Card className="max-w-md w-full">
-          <CardContent className="pt-6 text-center">
-            <AlertCircle className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-            <h2 className="text-xl font-semibold mb-2">Recipe Not Found</h2>
-            <p className="text-muted-foreground mb-4">
-              The recipe you&apos;re looking for doesn&apos;t exist or has been removed.
-            </p>
-            <Button asChild>
-              <Link href="/generate">Generate New Recipes</Link>
-            </Button>
-          </CardContent>
-        </Card>
+      <div className="min-h-screen bg-background pb-20 md:pb-0">
+        <MainNav />
+        <div className="flex items-center justify-center p-4 mt-20">
+          <Card className="max-w-md w-full">
+            <CardContent className="pt-6 text-center">
+              <AlertCircle className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+              <h2 className="text-xl font-semibold mb-2">Recipe Not Found</h2>
+              <p className="text-muted-foreground mb-4">
+                The recipe you&apos;re looking for doesn&apos;t exist or has been removed.
+              </p>
+              <Button asChild>
+                <Link href="/generate">Generate New Recipes</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     )
   }
@@ -103,8 +106,8 @@ export default function RecipeDetailPage() {
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
+      <RecipeSchema recipe={recipe} />
       <MainNav />
-      {/* Header */}
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 max-w-5xl">

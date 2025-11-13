@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { ScrollToTop } from "@/components/ui/scroll-to-top"
 
 export const metadata: Metadata = {
   title: {
@@ -98,6 +99,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <ScrollToTop />
         </ThemeProvider>
       </body>
     </html>

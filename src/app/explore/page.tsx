@@ -130,7 +130,6 @@ export default function ExplorePage() {
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
       <MainNav />
-      {/* Header */}
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 max-w-7xl">

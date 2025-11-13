@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { ChefHat, Sparkles, AlertCircle, Shuffle } from "lucide-react"
+import confetti from "canvas-confetti"
 import { useRecipeStore } from "@/store/useRecipeStore"
 import { IngredientInput } from "@/components/recipe/ingredient-input"
 import { RecipeFilters } from "@/components/filters/recipe-filters"
@@ -98,6 +99,13 @@ export default function GeneratePage() {
 
       const data = await response.json()
       setRecipes(data.recipes)
+
+      // Celebrate with confetti!
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      })
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.")
       console.error("Recipe generation error:", err)
