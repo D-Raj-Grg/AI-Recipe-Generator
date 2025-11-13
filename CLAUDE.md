@@ -32,7 +32,7 @@ git push -u origin claude/[branch-name-with-session-id]
 - **Styling:** Tailwind CSS + shadcn/ui components
 - **State:** Zustand (centralized store)
 - **Animations:** Framer Motion
-- **AI:** OpenAI API (GPT-4o or GPT-4o-mini)
+- **AI:** Vercel AI SDK with OpenAI provider (GPT-4o-mini)
 - **Icons:** Lucide React
 - **Theme:** next-themes (class-based dark mode)
 
@@ -131,12 +131,15 @@ All colors use CSS variables in `globals.css` with separate light/dark values. C
 
 ## Key Technical Decisions
 
-### OpenAI Integration (Phase 1 - Next Priority)
-- **Environment:** `OPENAI_API_KEY` in `.env.local` (CRITICAL - needed before API development)
-- **Model:** GPT-4o (better quality) or GPT-4o-mini (cost-efficient) - TBD
+### OpenAI Integration (Vercel AI SDK) ✅
+- **SDK:** Vercel AI SDK (`ai` + `@ai-sdk/openai`)
+- **Environment:** `OPENAI_API_KEY` in `.env.local` (CRITICAL - needed for testing)
+- **Model:** GPT-4o-mini (cost-efficient, fast)
 - **Temperature:** 0.8 (higher for creative recipe variations)
-- **Format:** Structured JSON responses with explicit schema
+- **Format:** JSON responses enforced via system prompt
+- **Implementation:** `generateText()` for synchronous recipe generation
 - **Rate Limiting:** 15 recipes/hour per IP address
+- **Future:** Streaming support with `streamText()`, React hooks (`useChat`)
 
 ### Data Persistence Strategy
 - **No database:** All user data stored in localStorage
