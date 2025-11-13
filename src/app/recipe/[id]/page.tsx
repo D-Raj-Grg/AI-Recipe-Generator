@@ -15,7 +15,12 @@ import {
   Plus,
   Minus,
   Lightbulb,
-  AlertCircle
+  AlertCircle,
+  Printer,
+  Twitter,
+  Facebook,
+  MessageCircle,
+  Link as LinkIcon
 } from "lucide-react"
 import { useRecipeStore } from "@/store/useRecipeStore"
 import { MainNav } from "@/components/navigation/main-nav"
@@ -96,6 +101,37 @@ export default function RecipeDetailPage() {
     }
   }
 
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      setShareSuccess(true)
+      setTimeout(() => setShareSuccess(false), 3000)
+    } catch (err) {
+      console.error('Failed to copy link')
+    }
+  }
+
+  const handlePrint = () => {
+    window.print()
+  }
+
+  const handleShareTwitter = () => {
+    const text = `Check out this ${recipe.cuisine} recipe: ${recipe.name}`
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
+
+  const handleShareFacebook = () => {
+    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
+
+  const handleShareWhatsApp = () => {
+    const text = `Check out this ${recipe.cuisine} recipe: ${recipe.name} - ${window.location.href}`
+    const url = `https://wa.me/?text=${encodeURIComponent(text)}`
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
+
   const adjustedServings = Math.round(recipe.servings * servingMultiplier)
 
   const difficultyColor = {
@@ -149,6 +185,73 @@ export default function RecipeDetailPage() {
                     {type}
                   </Badge>
                 ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-2 pt-2">
+                <Button
+                  onClick={handleBookmark}
+                  variant={isBookmarked ? "default" : "outline"}
+                  size="sm"
+                  aria-label={isBookmarked ? "Remove from bookmarks" : "Add to bookmarks"}
+                >
+                  {isBookmarked ? (
+                    <BookmarkCheck className="h-4 w-4 mr-2" aria-hidden="true" />
+                  ) : (
+                    <Bookmark className="h-4 w-4 mr-2" aria-hidden="true" />
+                  )}
+                  {isBookmarked ? "Saved" : "Save"}
+                </Button>
+
+                <Button
+                  onClick={handlePrint}
+                  variant="outline"
+                  size="sm"
+                  aria-label="Print recipe"
+                >
+                  <Printer className="h-4 w-4 mr-2" aria-hidden="true" />
+                  Print
+                </Button>
+
+                <Button
+                  onClick={handleCopyLink}
+                  variant="outline"
+                  size="sm"
+                  aria-label="Copy link to recipe"
+                >
+                  <LinkIcon className="h-4 w-4 mr-2" aria-hidden="true" />
+                  Copy Link
+                </Button>
+
+                <Button
+                  onClick={handleShareTwitter}
+                  variant="outline"
+                  size="sm"
+                  aria-label="Share on Twitter"
+                >
+                  <Twitter className="h-4 w-4 mr-2" aria-hidden="true" />
+                  <span className="hidden sm:inline">Twitter</span>
+                </Button>
+
+                <Button
+                  onClick={handleShareFacebook}
+                  variant="outline"
+                  size="sm"
+                  aria-label="Share on Facebook"
+                >
+                  <Facebook className="h-4 w-4 mr-2" aria-hidden="true" />
+                  <span className="hidden sm:inline">Facebook</span>
+                </Button>
+
+                <Button
+                  onClick={handleShareWhatsApp}
+                  variant="outline"
+                  size="sm"
+                  aria-label="Share on WhatsApp"
+                >
+                  <MessageCircle className="h-4 w-4 mr-2" aria-hidden="true" />
+                  <span className="hidden sm:inline">WhatsApp</span>
+                </Button>
               </div>
 
               {/* Quick Stats */}
