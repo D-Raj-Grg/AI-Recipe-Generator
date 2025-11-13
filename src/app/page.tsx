@@ -99,7 +99,7 @@ export default function Home() {
           <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-secondary/5 blur-3xl" />
         </div>
 
-        <div className="container px-4 md:px-8">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="mx-auto max-w-4xl text-center">
             {/* Badge */}
             <motion.div
@@ -202,8 +202,8 @@ export default function Home() {
 
       {/* Stats Section */}
       <section className="border-y bg-muted/30 py-12">
-        <div className="container px-4 md:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -225,7 +225,7 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="py-20 md:py-32">
-        <div className="container px-4 md:px-8">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="mx-auto max-w-6xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -272,7 +272,7 @@ export default function Home() {
 
       {/* How It Works Section */}
       <section className="py-20 md:py-32 bg-muted/30">
-        <div className="container px-4 md:px-8">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="mx-auto max-w-6xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -338,7 +338,7 @@ export default function Home() {
 
       {/* Testimonials Section */}
       <section className="py-20 md:py-32">
-        <div className="container px-4 md:px-8">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="mx-auto max-w-6xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -394,7 +394,7 @@ export default function Home() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
         </div>
 
-        <div className="container px-4 md:px-8">
+        <div className="container mx-auto px-4 md:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
