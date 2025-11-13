@@ -3,8 +3,84 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
-  title: "ChefMate - AI Recipe Generator",
-  description: "Turn your ingredients into delicious meals with AI - Your AI Kitchen Companion",
+  title: {
+    default: "ChefMate - AI Recipe Generator | Turn Ingredients Into Delicious Meals",
+    template: "%s | ChefMate"
+  },
+  description: "Generate personalized recipes from your ingredients in seconds using AI. ChefMate respects dietary restrictions, reduces food waste, and makes cooking accessible to everyone. Your AI Kitchen Companion.",
+  keywords: [
+    "AI recipe generator",
+    "recipe maker",
+    "cooking assistant",
+    "ingredient-based recipes",
+    "meal planning",
+    "dietary restrictions",
+    "food waste reduction",
+    "personalized recipes",
+    "AI cooking",
+    "recipe ideas",
+    "what to cook",
+    "kitchen assistant"
+  ],
+  authors: [{ name: "ChefMate" }],
+  creator: "ChefMate",
+  publisher: "ChefMate",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+
+  // Open Graph
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    title: "ChefMate - AI Recipe Generator",
+    description: "Turn your ingredients into delicious meals with AI. Generate personalized recipes in seconds.",
+    siteName: "ChefMate",
+  },
+
+  // Twitter
+  twitter: {
+    card: "summary",
+    title: "ChefMate - AI Recipe Generator",
+    description: "Turn your ingredients into delicious meals with AI. Generate personalized recipes in seconds.",
+    creator: "@chefmate"
+  },
+
+  // Icons
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" }
+    ],
+  },
+
+  // Manifest
+  manifest: "/manifest.json",
+
+  // App
+  applicationName: "ChefMate",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "ChefMate"
+  },
+
+  // Other
+  category: "food",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    // Add verification tokens when available
+    // google: 'your-google-verification-token',
+    // yandex: 'your-yandex-verification-token',
+  }
 }
 
 export default function RootLayout({
