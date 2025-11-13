@@ -74,4 +74,117 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Enhanced focus indicators for keyboard navigation (A11y) */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Ensure links and buttons have clear focus states */
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+
+  /* Input focus states */
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+/* Accessibility: Respect reduced motion preferences (A11y & Performance) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Performance: Optimize animations with will-change hint */
+@layer utilities {
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  .will-change-auto {
+    will-change: auto;
+  }
+}
+
+/* Print styles for recipe pages */
+@media print {
+  /* Hide non-essential elements */
+  header,
+  nav,
+  .scroll-to-top,
+  button:not(.print-keep),
+  [role="button"]:not(.print-keep) {
+    display: none !important;
+  }
+
+  /* Reset backgrounds and colors for printing */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Ensure content is visible */
+  * {
+    color: black !important;
+    background: white !important;
+  }
+
+  /* Keep recipe content styled */
+  h1, h2, h3, h4, h5, h6 {
+    color: black !important;
+    page-break-after: avoid;
+  }
+
+  /* Prevent page breaks inside important sections */
+  .recipe-section,
+  .ingredient-list,
+  .instruction-step {
+    page-break-inside: avoid;
+  }
+
+  /* Optimize for A4 paper */
+  @page {
+    margin: 2cm;
+    size: A4;
+  }
+
+  /* Show URLs for links */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+
+  /* Don't show URLs for navigation links */
+  nav a[href]:after,
+  [href^="#"]:after {
+    content: "";
+  }
+
+  /* Ensure lists are properly formatted */
+  ul, ol {
+    page-break-inside: avoid;
+  }
+
+  /* Cards should not have borders in print */
+  .card,
+  [class*="card"] {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
 }

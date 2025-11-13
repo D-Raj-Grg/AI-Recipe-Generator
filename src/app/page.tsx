@@ -172,9 +172,12 @@ export default function Home() {
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 shadow-lg"
+                  asChild
                 >
-                  <Sparkles className="mr-2 h-5 w-5" />
-                  Generate Recipes
+                  <a href="/generate">
+                    <Sparkles className="mr-2 h-5 w-5" />
+                    Generate Recipes
+                  </a>
                 </Button>
               </div>
             </motion.div>
@@ -277,8 +280,11 @@ export default function Home() {
                 size="lg"
                 variant="outline"
                 className="border-2 border-primary/20 hover:border-primary"
+                asChild
               >
-                Explore More Recipes
+                <a href="/generate">
+                  Explore More Recipes
+                </a>
               </Button>
             </motion.div>
           </div>
