@@ -53,6 +53,7 @@ interface RecipeStore {
   bookmarkRecipe: (recipe: Recipe) => void
   unbookmarkRecipe: (recipeId: string) => void
   isRecipeBookmarked: (recipeId: string) => boolean
+  clearBookmarks: () => void
 
   // History actions
   addToHistory: (recipe: Recipe) => void
@@ -173,6 +174,8 @@ export const useRecipeStore = create<RecipeStore>()(
         const state = get()
         return state.bookmarkedRecipes.some((r) => r.id === recipeId)
       },
+
+      clearBookmarks: () => set({ bookmarkedRecipes: [] }),
 
       // History actions
       addToHistory: (recipe) =>
