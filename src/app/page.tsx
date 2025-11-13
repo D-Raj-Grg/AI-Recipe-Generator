@@ -1,6 +1,7 @@
 "use client"
 
 import { ThemeToggle } from "@/components/theme-toggle"
+import { Logo } from "@/components/logo"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -81,12 +82,7 @@ export default function Home() {
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between px-4 md:px-8">
-          <div className="flex items-center gap-2">
-            <ChefHat className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-600 bg-clip-text text-transparent">
-              ChefMate
-            </span>
-          </div>
+          <Logo size="md" />
           <ThemeToggle />
         </div>
       </header>
@@ -294,10 +290,7 @@ export default function Home() {
         <div className="container px-4 md:px-8">
           <div className="mx-auto max-w-6xl">
             <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-              <div className="flex items-center gap-2">
-                <ChefHat className="h-5 w-5 text-primary" />
-                <span className="font-semibold">ChefMate</span>
-              </div>
+              <Logo size="sm" />
               <p className="text-sm text-muted-foreground">
                 Your AI Kitchen Companion - Making cooking easier, one recipe at a time
               </p>
