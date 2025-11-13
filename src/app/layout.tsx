@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ScrollToTop } from "@/components/ui/scroll-to-top"
+import { Footer } from "@/components/navigation/footer"
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -111,7 +112,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="flex flex-col min-h-screen">
+            <div className="flex-1">{children}</div>
+            <Footer />
+          </div>
           <ScrollToTop />
         </ThemeProvider>
       </body>
