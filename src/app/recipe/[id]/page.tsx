@@ -110,7 +110,7 @@ export default function RecipeDetailPage() {
       <MainNav />
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8 max-w-5xl">
+      <main id="main-content" className="container mx-auto px-4 py-8 max-w-5xl">
         {shareSuccess && (
           <Alert className="mb-6 bg-emerald-50 dark:bg-emerald-950 border-emerald-200 dark:border-emerald-800">
             <AlertDescription className="text-emerald-700 dark:text-emerald-400">

@@ -20,7 +20,17 @@ const COOKING_TIPS = [
   "🍳 Don't overcrowd the pan when searing",
   "🥗 Dress salads just before serving",
   "🍞 Stale bread makes the best croutons",
-  "🧄 Remove the green germ from garlic to reduce bitterness"
+  "🧄 Remove the green germ from garlic to reduce bitterness",
+  "🥩 Pat meat dry before searing for a better crust",
+  "🍋 Add acid (lemon, vinegar) to brighten up flavors",
+  "🥕 Cut vegetables uniformly for even cooking",
+  "🫗 Reserve pasta water - it's liquid gold for sauces",
+  "🧊 Chill cookie dough for better texture and flavor",
+  "🥛 Bring dairy to room temperature before baking",
+  "🌰 Toast nuts and spices to enhance their flavor",
+  "🍯 A pinch of sugar can balance acidic tomato sauces",
+  "🧂 Salt your pasta water - it should taste like the sea",
+  "🔥 High heat for searing, low heat for braising"
 ]
 
 export function LoadingState() {

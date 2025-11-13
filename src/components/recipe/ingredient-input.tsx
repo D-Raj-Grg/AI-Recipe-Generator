@@ -95,20 +95,27 @@ export function IngredientInput() {
             }}
             onKeyPress={handleKeyPress}
             className={inputError ? "border-destructive" : ""}
+            aria-invalid={inputError ? "true" : "false"}
+            aria-describedby={inputError ? "ingredient-error" : undefined}
           />
           <Button
             onClick={handleAddIngredient}
             disabled={!input.trim() || ingredients.length >= 20}
             size="icon"
             className="shrink-0"
+            aria-label="Add ingredient"
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-4 w-4" aria-hidden="true" />
           </Button>
         </div>
 
         {inputError && (
-          <p className="text-sm text-destructive mt-2 flex items-center gap-1">
-            <AlertCircle className="h-3 w-3" />
+          <p
+            id="ingredient-error"
+            className="text-sm text-destructive mt-2 flex items-center gap-1"
+            role="alert"
+          >
+            <AlertCircle className="h-3 w-3" aria-hidden="true" />
             {inputError}
           </p>
         )}
@@ -128,9 +135,18 @@ export function IngredientInput() {
                   variant="secondary"
                   className="px-3 py-1.5 text-sm font-normal gap-1.5 hover:bg-secondary/80 cursor-pointer"
                   onClick={() => removeIngredient(ingredient)}
+                  role="button"
+                  aria-label={`Remove ${ingredient}`}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault()
+                      removeIngredient(ingredient)
+                    }
+                  }}
                 >
                   {ingredient}
-                  <X className="h-3 w-3" />
+                  <X className="h-3 w-3" aria-hidden="true" />
                 </Badge>
               </motion.div>
             ))}
@@ -175,8 +191,9 @@ export function IngredientInput() {
             size="icon"
             variant="outline"
             className="shrink-0"
+            aria-label="Add ingredient to exclude"
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-4 w-4" aria-hidden="true" />
           </Button>
         </div>
 
@@ -195,9 +212,18 @@ export function IngredientInput() {
                   variant="destructive"
                   className="px-3 py-1.5 text-sm font-normal gap-1.5 hover:opacity-80 cursor-pointer"
                   onClick={() => removeExclude(ingredient)}
+                  role="button"
+                  aria-label={`Remove ${ingredient} from exclusions`}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault()
+                      removeExclude(ingredient)
+                    }
+                  }}
                 >
                   {ingredient}
-                  <X className="h-3 w-3" />
+                  <X className="h-3 w-3" aria-hidden="true" />
                 </Badge>
               </motion.div>
             ))}

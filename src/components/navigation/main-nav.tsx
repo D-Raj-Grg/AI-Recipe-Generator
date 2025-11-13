@@ -23,13 +23,17 @@ export function MainNav() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <ChefHat className="h-6 w-6 text-primary" />
+          <Link
+            href="/"
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            aria-label="ChefMate Home"
+          >
+            <ChefHat className="h-6 w-6 text-primary" aria-hidden="true" />
             <span className="text-xl font-bold hidden sm:inline">ChefMate</span>
           </Link>
 
           {/* Navigation Links - Desktop */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon
               const isActive = pathname === item.href
@@ -41,8 +45,12 @@ export function MainNav() {
                   size="sm"
                   asChild
                 >
-                  <Link href={item.href} className="gap-2">
-                    <Icon className="h-4 w-4" />
+                  <Link
+                    href={item.href}
+                    className="gap-2"
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    <Icon className="h-4 w-4" aria-hidden="true" />
                     {item.label}
                   </Link>
                 </Button>
@@ -64,7 +72,7 @@ export function MainNav() {
 
       {/* Mobile Navigation Bar - Fixed Bottom */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
-        <nav className="container mx-auto px-2">
+        <nav className="container mx-auto px-2" aria-label="Mobile navigation">
           <div className="flex items-center justify-around py-2">
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon
@@ -80,8 +88,10 @@ export function MainNav() {
                       ? "text-primary bg-primary/10"
                       : "text-muted-foreground hover:text-foreground hover:bg-accent"
                   )}
+                  aria-current={isActive ? "page" : undefined}
+                  aria-label={item.label}
                 >
-                  <Icon className="h-5 w-5" />
+                  <Icon className="h-5 w-5" aria-hidden="true" />
                   <span className="text-[10px]">{item.label}</span>
                 </Link>
               )
